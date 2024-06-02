@@ -9,7 +9,7 @@ El proposito del proyecto es gestionar ordenes de compra y todos sus detalles co
 - Rut empresa
 - Nombre empresa
 ## Este será un proyecto desarrollado con react
-![React_logo](https://github.com/Jaco1416/Optativo/assets/129196766/3b297caa-3108-4c8e-b409-1d2230fbdfd3)
+![React-Symbol](https://github.com/Jaco1416/Whathedogduin/assets/129196766/cb153398-66c7-48da-85ba-ef5e28a2a8fd)
 ### ¿Por qué?
 React a la hora de programar presenta una ventaja con respecto a otros frameworks debido a su capacidad de organización y la posibilidad de reutilizar "componentes" de manera facil y rapida.
 
