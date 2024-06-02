@@ -1,4 +1,4 @@
-![foto_perro](https://github.com/Jaco1416/Optativo/assets/129196766/a6784eea-63b5-4c8a-a9d5-2ec46b496b54)
+![foto_perro](https://github.com/Jaco1416/Whathedogduin/assets/129196766/a6784eea-63b5-4c8a-a9d5-2ec46b496b54)
 # Gestion ordenes de compra para sacos de comida para mascotas
 
 El proposito del proyecto es gestionar ordenes de compra y todos sus detalles como por ejemplo:
