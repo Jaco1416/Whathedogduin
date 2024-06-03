@@ -1,48 +1,90 @@
-import React from 'react'
 import './factura.css'
+// facturaform.jsx
+import React, { useState } from 'react';
 
-const facturaform = () => {
+const FacturaForm = () => {
+    const [nombre, setNombre] = useState('');
+    const [precio, setPrecio] = useState('');
+    const [cantidad, setCantidad] = useState('');
+    const [data, setData] = useState([]);
+    const [cant, setCant] = useState(0);
+
+    const agregar = () => {
+        const precioNum = parseFloat(precio);
+        const cantidadNum = parseFloat(cantidad);
+        const total = precioNum * cantidadNum;
+
+        const newItem = {
+            id: cant,
+            nombre,
+            precio: precioNum,
+            cantidad: cantidadNum,
+            total
+        };
+
+        setData([...data, newItem]);
+        setNombre('');
+        setPrecio('');
+        setCantidad('');
+        setCant(cant + 1);
+        console.log(data);
+    };
+
+    const eliminar = (id) => {
+        setData(data.filter(item => item.id !== id));
+    };
+
     return (
-     <div>
-       <form class="form">
-           <div class="flex">
-              <p> Orden de compra</p>
-              <h5>Datos del proveedor </h5>
-              <label> 
-                 <input class="input" type="text" placeholder="" required=""/> 
-                 <span>nombre o razon social</span>
-              </label>
+        <div>
+            <input
+                id="nombre"
+                type="text"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                placeholder="Nombre"
+            />
+            <input
+                id="precio"
+                type="number"
+                value={precio}
+                onChange={(e) => setPrecio(e.target.value)}
+                placeholder="Precio"
+            />
+            <input
+                id="cantidad"
+                type="number"
+                value={cantidad}
+                onChange={(e) => setCantidad(e.target.value)}
+                placeholder="Cantidad"
+            />
+            <button id="agregar" onClick={agregar}>Agregar</button>
+            <button id="guardar" onClick={() => console.log('Data saved:', data)}>Guardar</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="lista">
+                    {data.map(item => (
+                        <tr key={item.id}>
+                            <td>{item.nombre}</td>
+                            <td>{item.precio}</td>
+                            <td>{item.cantidad}</td>
+                            <td>{item.total}</td>
+                            <td>
+                                <button onClick={() => eliminar(item.id)}>Eliminar</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+};
 
-              <label>
-                 <input class="input" type="text" placeholder="" required=""/>
-                 <span>CUIT</span>
-              </label>
-           </div>  
-            
-           <label>
-              <input class="input" type="email" placeholder="" required=""/>
-              <span>dirección </span>
-           </label> 
-        
-           <label>
-              <input class="input" type="text" placeholder="" required=""/>
-              <span>teléfono </span>
-           </label>
-           <label>
-              <textarea class="input01" placeholder="" rows="3" required=""></textarea>
-              <span>correo electronico</span>
-           </label>
-    
-           <button href="#" class="fancy">
-           <span class="top-key"></span>
-           <span class="text">ingresar</span>
-           <span class="bottom-key-1"></span>
-           <span class="bottom-key-2"></span>
-           </button>
-       </form>
-     </div>
- )
-}
-
-export default facturaform
-
+export default FacturaForm;
