@@ -5,17 +5,17 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
-  const [usuariosList, setUsuarios] = useState([]);
+  const [empresaList, setEmpresa] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
-  const getUsuarios = (event) => {
+  const getEmpresa = (event) => {
     if (event) event.preventDefault();
-    Axios.get("http://localhost:3001/usuarios").then((response) => {
-      setUsuarios(response.data);
+    Axios.get("http://localhost:3001/empresa").then((response) => {
+      setEmpresa(response.data);
     });
   };
 
@@ -32,12 +32,12 @@ const Login = () => {
   const handleLogin = (event) => {
     event.preventDefault();
 
-    const usuario = usuariosList.find(usuario => usuario.CORREO === email && usuario.CONTRASENA === password);
+    const empresa = empresaList.find(empresa => empresa.EMAIL === email && empresa.PASSWORD === password);
 
-    if (usuario) {
-      localStorage.setItem('user', JSON.stringify(usuario));
+    if (empresa) {
+      localStorage.setItem('empresa', JSON.stringify(empresa));
       localStorage.setItem('loggedIn', true);
-      navigate('/');
+      navigate('/Home');
 
     } else {
       setError('Correo y/o contraseña incorrectos');
@@ -45,7 +45,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    getUsuarios();
+    getEmpresa();
     // Esto hace que la página cargue desde arriba cada vez que se monta el componente
     window.scrollTo(0, 0);
   }, []);
@@ -63,7 +63,7 @@ const Login = () => {
             <label>Contraseña</label>
         </div>
         {error && <p className="error-message">{error}</p>}
-        <a type='submit' href="#">
+        <a type='submit' href="#" onClick={handleLogin}>
           <span></span>
           <span></span>
           <span></span>
