@@ -141,11 +141,13 @@ const Home = () => {
   };
   return (
     <div>
-      <button class="btn-logout" onClick={handleLogout}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <button class="Btn" onClick={handleLogout}>
+          <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
 
-        <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
-
-      </button>
+          <div class="text">Logout</div>
+        </button>
+      </div>
       <h2 style={{ textAlign: 'center', marginTop: '50px' }}>Orden de Compra</h2>
       <form onSubmit={handleSubmit}>
         <table>
@@ -176,7 +178,7 @@ const Home = () => {
               <td><input type="text" name='rutEmpProv' placeholder='Ingresa rut empresa' required minLength="10" maxLength="10" /></td>
               <td><input type="text" name='nomEmpProv' placeholder='Ingresa nombre empresa' required minLength="10" maxLength="10" /></td>
               <td><input type="text" name='dirEmpProv' placeholder='Ingresa direccion empresa' required minLength="10" maxLength="10" /></td>
-              <td><input type="number" name='telEmpProv' placeholder='Ingresa teléfono' required /></td>
+              <td><input type="text" name='telEmpProv' placeholder='Ingresa teléfono' required /></td>
               <td><input type="email" name='mailEmpProv' placeholder='Ingresa correo' required /></td>
               <td><input type="text" name='webEmpProv' placeholder='Ingresa página web' /></td>
               <td><input type="text" name='servEmpProv' placeholder='Ingresa tipo de servicio' /></td>
@@ -197,7 +199,7 @@ const Home = () => {
               <td><input type="text" name='rutEmpCliente' placeholder='Ingresa rut' required minLength="10" maxLength="10" /></td>
               <td><input type="text" name='nomEmpCliente' placeholder='Ingresa nombre' required minLength="10" maxLength="10" /></td>
               <td><input type="text" name='dirEmpCliente' placeholder='Ingresa direccion' required minLength="10" maxLength="10" /></td>
-              <td><input type="number" name='telEmpCliente' placeholder='Ingresa teléfono' required /></td>
+              <td><input type="text" name='telEmpCliente' placeholder='Ingresa teléfono' required /></td>
               <td><input type="email" name='mailEmpCliente' placeholder='Ingresa correo' required /></td>
             </tr>
           </tbody>
@@ -237,7 +239,7 @@ const Home = () => {
           <label>Total General (IVA incluido):</label>
           <p>{Math.round(totalGeneral)}</p>
           <br /><br />
-          <button type="submit" className="botones-form">Generar Factura</button>
+          <button type="submit" className="botones-form-generar">Generar Factura</button>
         </div>
       </form>
     </div>

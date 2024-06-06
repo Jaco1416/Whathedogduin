@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import Axios from "axios";
-import './Login.css'
+import './Login.css';
 import { useNavigate } from 'react-router-dom';
-
+import logo from '../Assets/logo.png';
 
 const Login = () => {
   const [empresaList, setEmpresa] = useState([]);
@@ -51,27 +51,32 @@ const Login = () => {
   }, []);
 
   return (
-    <div class="login-box">
-      <p>Inicio de sesión</p>
-      <form onSubmit={handleLogin}>
-        <div class="user-box">
-          <input required="" name="" type="text" value={email} onChange={handleEmailChange}/>
-            <label>Correo</label>
-        </div>
-        <div class="user-box">
-          <input required="" name="" type="password" value={password} onChange={handlePasswordChange}/>
-            <label>Contraseña</label>
-        </div>
-        {error && <p className="error-message">{error}</p>}
-        <a type='submit' href="#" onClick={handleLogin}>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          Entrar
-        </a>
-      </form>
-      <p>No tienes una cuenta? <a href="https://www.youtube.com/watch?v=S6O1PYlE5BI" target='_blank' class="a2">click aqui!</a></p>
+    <div>
+      <div className='logo-pag'>
+        <img src={logo} className='logito' alt="Logo" border="0"/>
+      </div>
+      <div class="login-box">
+        <p>Inicio de sesión</p>
+        <form onSubmit={handleLogin}>
+          <div class="user-box">
+            <input required="" name="" type="text" value={email} onChange={handleEmailChange}/>
+              <label>Correo</label>
+          </div>
+          <div class="user-box">
+            <input required="" name="" type="password" value={password} onChange={handlePasswordChange}/>
+              <label>Contraseña</label>
+          </div>
+          {error && <p className="error-message">{error}</p>}
+          <a type='submit' href="#" onClick={handleLogin}>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Entrar
+          </a>
+        </form>
+        <p className='cuenta'>No tienes una cuenta? <a href="https://www.youtube.com/watch?v=S6O1PYlE5BI" target='_blank' class="a2">click aqui!</a></p>
+      </div>
     </div>
   )
 }
