@@ -1,0 +1,148 @@
+/* Estilos generales para el contenedor de la página */
+div {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody td {
+    padding: 10px;
+}
+
+tbody input[type="text"], 
+tbody input[type="number"],
+tbody input[type="email"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Estilos para los botones */
+.botones-form {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.boton-agregar{
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    display: flex;
+    margin: 40px auto;
+    width: 110px;
+    height: 50px;
+    font-size: 18px;
+    border-radius: 50px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.boton-agregar:hover{
+    background-color: #38743b;
+    transition: 0.5s;
+}
+
+.botones-form:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para los botones de eliminación */
+.botones-form[type="button"] {
+    background-color: #f44336;
+    margin-top: 0;
+}
+
+.botones-form[type="button"]:hover {
+    background-color: #e53935;
+}
+
+/* Estilos para las etiquetas y los campos de resumen */
+label {
+    font-weight: bold;
+}
+
+p {
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+/* Estilo para el encabezado de la página */
+h2 {
+    color: #333;
+}
+
+/* Contenedor para los totales */
+.total-container {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.btn-logout{
+    border-radius: 100px;
+    border: none;
+    display: flex;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: 0.5s;
+    
+}
+
+.btn-logout:hover{
+    transition: 0.5s;
+    background-color: #f77f7f;
+}
+
+
+.sign{
+    width: 16px;
+}
+
+.fecha-input{
+    font-family: 'Arial', sans-serif; /* Cambia la fuente si prefieres otra */
+    font-size: 16px;
+    padding: 10px;
+    border: 2px solid #ccc; /* Color del borde */
+    border-radius: 5px; /* Esquinas redondeadas */
+    background-color: #f9f9f9; /* Fondo del input */
+    color: #333; /* Color del texto */
+    outline: none; /* Quita el contorno azul en algunos navegadores */
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.fecha-input:hover{
+    border-color: #888; /* Cambia el color del borde */
+    background-color: #f1f1f1; /* Cambia el fondo */
+}
+
+.fecha-input:focus{
+    border-color: #0056b3; /* Color del borde cuando se enfoca */
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5); /* Sombra alrededor del input */
+    background-color: #fff; /* Fondo blanco al hacer focus */
+}
