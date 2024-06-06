@@ -35,4 +35,4 @@ Tambien tendras informació de errores en la consola.
 3. Base de datos oracle
 
 # Objetivo del proyecto
-No se
+Organizar y optimizar la creación de ordenes de compra y aumentar el flujo.
