@@ -179,7 +179,7 @@ const Home = () => {
       return null; // Ensure that null is returned if there's an error
     }
   };
-
+  
   const enviarDetallesFactura = async (numero_orden) => {
     if (!productos || productos.length === 0) {
       console.error('No hay productos para enviar');

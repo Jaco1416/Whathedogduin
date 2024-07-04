@@ -1,0 +1,30 @@
+.detalle-container {
+    background-color:#212121; /* Un tono claro de anaranjado para el fondo */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.Btn-volver {
+    background-color: #fd7e14; /* Un anaranjado más vibrante para el botón */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre el ícono y el texto */
+}
+
+.Btn-volver:hover {
+    background-color: #fc6410; /* Un poco más oscuro al pasar el mouse */
+}
+
+.Btn-volver .sign {
+    display: flex;
+}
+
+.Btn-volver .text {
+    font-weight: bold;
+}

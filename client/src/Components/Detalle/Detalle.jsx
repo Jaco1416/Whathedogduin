@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
+import './Detalle.css';
 
 const Detalle = () => {
 
@@ -10,7 +11,7 @@ const Detalle = () => {
     useEffect(() => {
         const fetchFactura = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/factura/${id}`);
+                const response = await axios.get(`http://localhost:3001/factura/${id}`);
                 const facturaData = response.data;
 
                 // Parsea la propiedad productos si es una cadena JSON
@@ -19,6 +20,7 @@ const Detalle = () => {
                 }
 
                 setFactura(facturaData);
+                console.log('Detalles de la factura:', facturaData);
             } catch (error) {
                 console.error('Error al obtener los detalles de la factura:', error.message, error.response?.data);
             }
@@ -185,7 +187,7 @@ const Detalle = () => {
                         </tr>
                     </tbody>
                 </table>
-                <Link to={`/rectificar/${id}`}>
+                <Link to={`/Rect/${id}`}>
                     <button className='btn-rectificar'>
                         Hacer rectificaciones
                     </button>
