@@ -37,7 +37,7 @@ const Login = () => {
     if (empresa) {
       localStorage.setItem('empresa', JSON.stringify(empresa));
       localStorage.setItem('loggedIn', true);
-      navigate('/Home');
+      navigate('/Inicio');
 
     } else {
       setError('Correo y/o contraseña incorrectos');

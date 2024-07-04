@@ -132,6 +132,22 @@ input[type="date"] {
     background-color: rgb(255, 251, 0);
 }
 
+.Btn-volver {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: .3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+    background-color: #e67e22;
+}
+
 /* plus sign */
 .sign {
     width: 100%;
@@ -186,3 +202,30 @@ input[type="date"] {
 .Btn:active {
     transform: translate(2px, 2px);
 }
+
+/* hover effect on button width */
+.Btn-volver:hover {
+    width: 125px;
+    border-radius: 40px;
+    transition-duration: .3s;
+}
+
+.Btn-volver:hover .sign {
+    width: 30%;
+    transition-duration: .3s;
+    padding-left: 10px;
+}
+
+/* hover effect button's text */
+.Btn-volver:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: .3s;
+    padding-right: 10px;
+}
+
+/* button click effect*/
+.Btn-volver:active {
+    transform: translate(2px, 2px);
+}
+
