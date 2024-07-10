@@ -25,7 +25,6 @@ const Home = () => {
   const [correo, setCorreo] = useState("");
 
   const [numFactura, setNumFactura] = useState(null); // Inicializar con null o un valor que indique carga inicial
-  const [fechaOrden, setFechaOrden] = useState('');
   const [fechaDespacho, setFechaDespacho] = useState('');
   const [rutCliente, setRutCliente] = useState('');
   const [nombreCliente, setNombreCliente] = useState('');
@@ -35,6 +34,13 @@ const Home = () => {
 
   const [regionDespacho, setRegionDespacho] = useState('');
   const [comunaDespacho, setComunaDespacho] = useState('');
+
+  const comunasPorRegion = {
+    Region1: ['Santiago', 'Maipú', 'Las Condes'],
+    Region2: ['Rancagua', 'Machalí', 'Graneros'],
+    Region3: ['Valparaíso', 'Viña del Mar', 'Quilpué']
+  };
+
   const [direccionDespacho, setDireccionDespacho] = useState('');
   const [usarDireccionCliente, setUsarDireccionCliente] = useState(false);
 
@@ -46,8 +52,18 @@ const Home = () => {
   const handleDireccionChange = (e) => setDireccionCliente(e.target.value);
   const handleTelefonoChange = (e) => setTelefonoCliente(e.target.value);
   const handleCorreoChange = (e) => setCorreoCliente(e.target.value);
-  const handleRegionChange = (e) => setRegionDespacho(e.target.value);
-  const handleComunaChange = (e) => setComunaDespacho(e.target.value);
+
+  const handleRegionChange = (event) => {
+    setRegionDespacho(event.target.value);
+    setComunaDespacho(''); // Resetea la comuna al cambiar la región
+  };
+
+  const handleComunaChange = (event) => {
+    setComunaDespacho(event.target.value);
+  };
+
+  const comunaOptions = regionDespacho ? comunasPorRegion[regionDespacho] : [];
+
   const handleDireccionDespachoChange = (e) => setDireccionDespacho(e.target.value);
   const handleFechaOrdenChange = (e) => setFechaOrden(e.target.value);
   const handleFechaDespachoChange = (e) => setFechaDespacho(e.target.value);
@@ -99,6 +115,16 @@ const Home = () => {
     }
     setProductos(newProductos);
   };
+
+  const obtenerFechaActualFormateada = () => {
+    const fechaActual = new Date();
+    const año = fechaActual.getFullYear();
+    const mes = (`0${fechaActual.getMonth() + 1}`).slice(-2); // Asegura el formato de dos dígitos
+    const dia = (`0${fechaActual.getDate()}`).slice(-2); // Asegura el formato de dos dígitos
+    return `${año}-${mes}-${dia}`;
+  };
+
+  const [fechaOrden, setFechaOrden] = useState(obtenerFechaActualFormateada());
 
   /**useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -179,7 +205,7 @@ const Home = () => {
       return null; // Ensure that null is returned if there's an error
     }
   };
-  
+
   const enviarDetallesFactura = async (numero_orden) => {
     if (!productos || productos.length === 0) {
       console.error('No hay productos para enviar');
@@ -328,7 +354,7 @@ const Home = () => {
 
           <div class="text">Logout</div>
         </button>
-        <button class="Btn-volver" onClick={volverInicio}>
+        <button class="Btn-back" onClick={volverInicio}>
           <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
 
           <div class="text">Inicio</div>
@@ -338,13 +364,11 @@ const Home = () => {
       <form onSubmit={handleSubmit}>
         <table>
           <thead>
-            <th>Número de orden</th>
             <th>Fecha orden</th>
           </thead>
           <tbody>
             <tr>
-              <td><input type="number" name='nroOrden' placeholder='nro orden' required disabled/></td>
-              <td><input className='fecha-input' type="date" name='fecha' required value={fechaOrden} onChange={handleFechaOrdenChange} /></td>
+              <td><input className='fecha-input' type="date" name='fecha' required value={fechaOrden} onChange={(e) => setFechaOrden(e.target.value)} disabled /></td>
             </tr>
           </tbody>
         </table>
@@ -397,7 +421,7 @@ const Home = () => {
         </table>
         <h3 style={{ textAlign: 'center', marginTop: '30px' }}>Datos de despacho</h3>
         <div className='dirCheckbox'>
-          <input type="checkbox" className='dirCheckbox' checked={usarDireccionCliente} onChange={handleCheckboxChange}/> 
+          <input type="checkbox" className='dirCheckbox' checked={usarDireccionCliente} onChange={handleCheckboxChange} />
           <div className='checkmark'></div>
           <p>Usar la misma dirección del cliente para despacho</p>
         </div>
@@ -411,28 +435,27 @@ const Home = () => {
           <tbody>
             <tr>
               <td>
-                <input
-                  type="text"
-                  name="regionDespacho"
-                  placeholder='Ingresa la región'
-                  required
-                  value={regionDespacho}
-                  onChange={handleRegionChange}
-                  minLength="5"
-                  maxLength="80"
-                />
+                <select
+                  name="regionDespacho" required value={regionDespacho} onChange={handleRegionChange}>
+                  <option value="">Selecciona una región</option>
+                  <option value="Region1">Metropolitana</option>
+                  <option value="Region2">O'Higgins</option>
+                  <option value="Region3">Valparaíso</option>
+                </select>
               </td>
               <td>
-                <input
-                  type="text"
+                <select
                   name="comunaDespacho"
-                  placeholder='Ingresa la comuna'
                   required
                   value={comunaDespacho}
                   onChange={handleComunaChange}
-                  minLength="3"
-                  maxLength="80"
-                />
+                  disabled={!regionDespacho} // Deshabilita si no se ha seleccionado una región
+                >
+                  <option value="">Selecciona una comuna</option>
+                  {comunaOptions.map((comuna) => (
+                    <option key={comuna} value={comuna}>{comuna}</option>
+                  ))}
+                </select>
               </td>
               <td>
                 <input

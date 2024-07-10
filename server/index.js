@@ -123,6 +123,21 @@ app.post('/facturas', (req, res) => {
     });
 });
 
+app.post('/rechazos', (req, res) => {
+    const rechazoData = req.body;
+    const query = 'INSERT INTO rechazos SET ?';
+
+    db.query(query, rechazoData, (err, result) => {
+        if (err) {
+            console.error('Error al insertar el rechazo:', err.message);
+            res.status(500).send({ error: 'Database query error', message: err.message });
+            return;
+        }
+        console.log('rechazo insertado correctamente');
+        res.send({ success: true, numero_orden: result.insertId });
+    });
+});
+
 // Ruta para actualizar una factura existente
 // Ruta para actualizar una factura existente
 app.put('/factura/:id', (req, res) => {

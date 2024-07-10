@@ -56,10 +56,9 @@
 .card .img {
     width: 70px;
     height: 70px;
-    background: #e8e8e8;
     border-radius: 100%;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 .card button {
@@ -77,4 +76,33 @@
 .card button:hover {
     background: #212121;
     color: #ffffff;
+}
+.boton-ver{
+    width: 150px;
+    padding: 8px 20px;
+    display: block;
+    border-radius: 8px;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: #e8e8e8;
+    color: #111111;
+    font-weight: 600;
+}
+
+
+.table-fact{
+    width: 90%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.top-table{
+    background-color: #e67e22;
+    color: white;
+}
+.dato-table{
+    border: 1px solid #888;
+    text-align: center;
+    background-color: #555;
+    color: #fff;
 }

@@ -5,6 +5,7 @@ import Login from '../src/Pages/Login'
 import Detalle_factura from '../src/Pages/Detalle_factura'
 import HomeOG from './Pages/HomeOG';
 import Rectificado from './Pages/Rectificado';
+import ModuloEnvio from './Components/ModuloEnvio/ModuloEnvio';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/Home' element={<Home/>} />
         <Route path='/detalle/:id' element={<Detalle_factura/>} />
         <Route path='/rect/:id' element={<Rectificado/>} />
+        <Route path='/Envio/:id' element={<ModuloEnvio/>} />
       </Routes>
     </BrowserRouter>
   );
