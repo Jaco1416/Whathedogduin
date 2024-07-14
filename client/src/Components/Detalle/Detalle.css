@@ -16,6 +16,18 @@
     align-items: center;
     gap: 10px; /* Espacio entre el ícono y el texto */
 }
+.Btn-descargar {
+    background-color: #fd7e14; /* Un anaranjado más vibrante para el botón */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre el ícono y el texto */
+}
+
 
 .Btn-volver:hover {
     background-color: #fc6410; /* Un poco más oscuro al pasar el mouse */
