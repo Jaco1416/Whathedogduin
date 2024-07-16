@@ -20,16 +20,24 @@ React a la hora de programar presenta una ventaja con respecto a otros framework
 4. Una vez dentro, ejecutar el siguiente comando para instalar dependencias: "npm install".
 5. Luego de instalar las dependencias, podrá levantar la página al ejecutar el comando: "npm start".
 6. Antes de continuar abra línea de comando "CMD" en la carpeta server e instale las dependencias utilizando: "npm install".
-7. Ahora deberá descargar e instalar laragon mediante el siguiente link: https://laragon.org/download/ descargue la version que dice "Full"
+7. Luego ejecute el siguiente comando: "node index.js".
+8. Ahora deberá descargar e instalar laragon mediante el siguiente link: https://laragon.org/download/ descargue la version que dice "Full"
    ![image](https://github.com/user-attachments/assets/1f498997-d226-465a-93e1-d7e7d282bea1)
 
 9. una vez instalado debe de abrir laragon y presionar en "iniciar todo"
-10. Luego se dirige donde dice "base de datos" y crea un usuario.
-11. Copia el script de la base de datos que está ubicado en la carpeta BD e insertelo en la aplicacion laragon en una pestaña que dice "Consultas", presione "F9" para ejecutar.
-12. Para finalizar reabra la línea de comando "CMD" de la carpeta server y ejecute el siguiente comando: "node index.js".
+   ![larag](https://github.com/user-attachments/assets/c5bdf874-7639-4ae2-bd97-e10643edee73)
+
+11. Luego se dirige donde dice "base de datos" y presion en "Abrir".
+   ![baselarag](https://github.com/user-attachments/assets/bb5d9849-2cbb-4b79-9357-3134901d93b4)
+
+   ![abrir bvd](https://github.com/user-attachments/assets/ce3a20b3-4dcd-44b1-89ae-634a4604fa29)
+
+13. Copia el script de la base de datos que está ubicado en la carpeta BD e insertelo en la aplicacion Heidisql en una pestaña que dice "Consultas", presione "F9" para ejecutar.
+   ![insertar consulta](https://github.com/user-attachments/assets/3e9054aa-d5a2-4228-9f71-a1d4839d343d)
+
 
 Cuando la pagina esté levantada, se recargará de forma automática cada vez que se realice un cambio en el código.\
-De igual manera, la consola contará con información detallada sobre los posibles errores que puedan podrucirse.
+De igual manera, la consola contará con información detallada sobre los posibles errores que puedan producirse.
 
 ### `Requsitos funcionales`
 1. Inicio de sesión
