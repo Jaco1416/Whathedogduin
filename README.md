@@ -30,7 +30,7 @@ React a la hora de programar presenta una ventaja con respecto a otros framework
 11. Luego se dirige donde dice "base de datos" y presion en "Abrir".
    ![baselarag](https://github.com/user-attachments/assets/bb5d9849-2cbb-4b79-9357-3134901d93b4)
 
-   ![abrir bvd](https://github.com/user-attachments/assets/ce3a20b3-4dcd-44b1-89ae-634a4604fa29)
+      ![abrir bvd](https://github.com/user-attachments/assets/ce3a20b3-4dcd-44b1-89ae-634a4604fa29)
 
 13. Copia el script de la base de datos que está ubicado en la carpeta BD e insertelo en la aplicacion Heidisql en una pestaña que dice "Consultas", presione "F9" para ejecutar.
    ![insertar consulta](https://github.com/user-attachments/assets/3e9054aa-d5a2-4228-9f71-a1d4839d343d)
