@@ -10,6 +10,9 @@ const HomePage = () => {
   const empresaData = JSON.parse(localStorage.getItem('empresa'));
   const auth = useAuth();
   const [facturas, setFacturas] = useState([]);
+  const [filtroFactura, setFiltroFactura] = useState('todas'); // Estado de filtro por estado de factura
+  const [filtroEntrega, setFiltroEntrega] = useState('todas'); // Estado de filtro por estado de entrega
+
 
 
   useEffect(() => {
@@ -29,6 +32,7 @@ const HomePage = () => {
     });
   };
 
+
   const fecha = new Date().toLocaleDateString('es-ES', {
     weekday: 'long',
     year: 'numeric',
@@ -42,6 +46,28 @@ const HomePage = () => {
 
   const fechaCapitalized = fecha.split(' ').map(capitalizeFirstLetter).join(' ');
 
+  const filtrarFacturas = (estado, tipo) => {
+    if (tipo === 'factura') {
+      setFiltroFactura(estado);
+    } else if (tipo === 'entrega') {
+      setFiltroEntrega(estado);
+    }
+  };
+
+  const contarFacturasPorEstado = (estado) => {
+    return facturas.filter(factura => factura.estado_factura === estado).length;
+  };
+
+  const contarFacturasPorEstadoEntrega = (estado) => {
+    return facturas.filter(factura => factura.estado_entrega === estado).length;
+  };
+
+  const facturasFiltradas = facturas.filter(factura => {
+    const filtroFacturaPass = filtroFactura === 'todas' || factura.estado_factura === filtroFactura;
+    const filtroEntregaPass = filtroEntrega === 'todas' || factura.estado_entrega === filtroEntrega;
+    return filtroFacturaPass && filtroEntregaPass;
+  });
+
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className='logout'>
@@ -52,61 +78,86 @@ const HomePage = () => {
         </button>
       </div>
       <div className='container'>
-
-        <div className='izquierdo'>
-          <div class="card">
-            <div class="card-border-top">
-            </div>
-            <div class="img">
-              <img className='img' src={userIcon} alt="foto" />
-            </div>
-            <span> Bienvenido/a</span>
-            <p class="job"> {empresaData.NOMBRE}</p>
-            <Link to='/Home'><button>
-              Crear factura
-            </button> </Link>
-          </div>
-        </div>
         <div className='derecho'>
+          <div className="userCard">
+            <div class="card">
+              <div class="card-border-top">
+              </div>
+              <div class="img">
+                <img className='img' src={userIcon} alt="foto" />
+              </div>
+              <span> Bienvenido/a</span>
+              <p class="job"> {empresaData.NOMBRE}</p>
+              <Link to='/Home' style={{ color: 'white' }}><button>
+                Crear factura
+              </button> </Link>
+            </div>
+          </div>
           <h2>Tus facturas</h2>
-          {facturas.length === 0 ? (
-            <p style={{ fontSize: '20px', textAlign: 'center' }}>No has creado ninguna factura <br />¡Puedes crear una nueva factura en el botón superior!</p>
+          <div className="btn-filtros">
+            <p style={{ marginTop: '12px', marginRight: '20px' }}>Filtrar por estado de factura:</p>
+            <button className='boton-ver' onClick={() => filtrarFacturas('todas', 'factura')}>Todas ({facturas.length})</button>
+            <button className='boton-ver' onClick={() => filtrarFacturas('creada', 'factura')}>Creadas ({contarFacturasPorEstado('creada')})</button>
+            <button className='boton-ver' onClick={() => filtrarFacturas('rectificada', 'factura')}>Rectificadas ({contarFacturasPorEstado('rectificada')})</button>
+            <button className='boton-ver' onClick={() => filtrarFacturas('anulada', 'factura')}>Anuladas ({contarFacturasPorEstado('anulada')})</button>
+          </div>
+          <div className="btn-filtros">
+            <p style={{ marginTop: '12px', marginRight: '20px' }}>Filtrar por estado de entrega:</p>
+            <button className='boton-ver' onClick={() => filtrarFacturas('todas', 'entrega')}>Todas ({facturas.length})</button>
+            <button className='boton-ver' onClick={() => filtrarFacturas('por entregar', 'entrega')}>Por Entregar ({contarFacturasPorEstadoEntrega('por entregar')})</button>
+            <button className='boton-ver' onClick={() => filtrarFacturas('rechazado', 'entrega')}>Rechazadas ({contarFacturasPorEstadoEntrega('rechazado')})</button>
+            <button className='boton-ver' onClick={() => filtrarFacturas('aceptado', 'entrega')}>Aceptadas ({contarFacturasPorEstadoEntrega('aceptado')})</button>
+          </div>
+          {facturasFiltradas.length === 0 ? (
+            <p style={{ fontSize: '20px', textAlign: 'center' }}>No hay facturas para mostrar con el estado que escogiste</p>
           ) : (
-            <table className='table-fact'>
-              <thead>
-                <tr>
-                  <th className='top-table'>Número de orden</th>
-                  <th className='top-table'>Fecha factura</th>
-                  <th className='top-table'>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {facturas.map(factura => {
-                  const fechaOrden = new Date(factura.fecha_orden);
-                  const fechaOrdenChilena = fechaOrden.toLocaleDateString('es-CL');
+            <div className="tabla">
+              <table className='table-fact'>
+                <thead>
+                  <tr>
+                    <th className='top-table-1'>Número de orden</th>
+                    <th className='top-table'>Fecha factura</th>
+                    <th className='top-table'>Estado factura</th>
+                    <th className='top-table'>Estado envio</th>
+                    <th className='top-table-2'>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {facturasFiltradas.map(factura => {
+                    const fechaOrden = new Date(factura.fecha_orden);
+                    const fechaOrdenChilena = fechaOrden.toLocaleDateString('es-CL');
+                    const colorEstadoEntrega = factura.estado_entrega === 'aceptado' ? '#0B9111' : factura.estado_entrega === 'rechazado' ? '#E81E1E' : factura.estado_entrega === 'por entregar' ? '#00C195' : 'black';
+                    const colorEstadoFactura = factura.estado_factura === 'creada' ? '#0B9111' : factura.estado_factura === 'anulada' ? '#E81E1E' : factura.estado_factura === 'rectificada' ? '#3A32BB' : 'black';
 
-                  return (
-                    <tr key={factura.numero_orden} className='dato-table'>
-                      <td className='dato-table'>
-                        <p>{factura.numero_orden}</p>
-                      </td>
-                      <td className='dato-table'>
-                        {fechaOrdenChilena}
-                      </td>
-                      <td>
-                        <Link to={`/detalle/${factura.numero_orden}`}>
-                          <button style={{ marginLeft: '30px' }} className='boton-ver'>Ver detalle</button>
-                        </Link>
-                        <Link to={`/Envio/${factura.numero_orden}`}>
-                          <button style={{ marginLeft: '30px' }} className='boton-ver'>Ver envio</button>
-                        </Link>
+                    return (
+                      <tr key={factura.numero_orden} className='dato-table'>
+                        <td className='dato-table'>
+                          <p>{factura.numero_orden}</p>
+                        </td>
+                        <td className='dato-table'>
+                          {fechaOrdenChilena}
+                        </td>
+                        <td className='dato-table'>
+                          <p style={{ background: colorEstadoFactura, borderRadius: '100px' }}>{factura.estado_factura}</p>
+                        </td>
+                        <td className='dato-table'>
+                          <p style={{ background: colorEstadoEntrega, borderRadius: '100px' }}>{factura.estado_entrega}</p>
+                        </td>
+                        <td className='btn-acciones'>
+                          <Link to={`/detalle/${factura.numero_orden}`} style={{ color: 'white' }}>
+                            <button style={{ marginLeft: '20px', marginRight: '20px' }} className='boton-ver'>Ver detalle</button>
+                          </Link>
+                          <Link to={`/Envio/${factura.numero_orden}`} style={{ color: 'white' }}>
+                            <button style={{ marginLeft: '20px', marginRight: '20px' }} className='boton-ver'>Ver envio</button>
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
 
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
           )}
 
         </div>

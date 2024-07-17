@@ -1,8 +1,32 @@
+.btn-accion-detalles{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
 .detalle-container {
+    text-align: center;
     background-color:#212121; /* Un tono claro de anaranjado para el fondo */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.tabla-detalle{
+    margin: 0 auto;
+    width: 50%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #837a7a;
+
+}
+.tabla-detalle-th{
+    width: 50%;
+    background-color: #fd7e14;
+    border: 1px solid #837a7a;
+}
+.tabla-detalle-td{
+    width: 50%;
+    background-color: #473e3e;
+    border: 1px solid #837a7a;
 }
 
 .Btn-volver {
@@ -27,6 +51,18 @@
     align-items: center;
     gap: 10px; /* Espacio entre el ícono y el texto */
 }
+.btn-anular{
+    background-color: #dc3545; /* Un rojo para el botón */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre el ícono y el texto */
+
+}
 
 
 .Btn-volver:hover {
@@ -39,4 +75,31 @@
 
 .Btn-volver .text {
     font-weight: bold;
+}
+
+.btnes-detalle{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.tabla-detalle-rechazo{
+    margin: 0 auto;
+    width: 100%;
+    height: 100px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #837a7a;
+}
+.tabla-detalle-th-rechazo{
+    width: 30%;
+    background-color: #fd7e14;
+    border: 1px solid #837a7a;
+}
+
+.tabla-detalle-td-rechazo{
+    width: 30%;
+    background-color: #473e3e;
+    border: 1px solid #837a7a;
 }

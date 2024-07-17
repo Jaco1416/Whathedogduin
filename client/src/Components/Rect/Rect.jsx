@@ -53,6 +53,12 @@ const EditarFactura = () => {
         if (factura.productos.length > 1) {
             const productos = factura.productos.filter((_, i) => i !== index);
             setFactura({ ...factura, productos });
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Error!",
+                text: "Debe haber al menos un producto!",
+            });
         }
     };
 
@@ -167,128 +173,130 @@ const EditarFactura = () => {
 
     return (
         <div>
-            <h1 className='b'>Rectificar Factura N° {factura.numero_orden}</h1>
-            <p className='b'>En esta página puedes modificar los datos que requieras de la factura!</p>
-            <form onSubmit={handleSubmit} className='a'>
-                <table className="a">
-                    <tbody>
-                        <tr>
-                            <td><label>Número de Factura:</label></td>
-                            <td><input type="text" name="numero_orden" value={factura.numero_orden} onChange={handleInputChange} disabled /></td>
-                            <td><label>Fecha de Factura:</label></td>
-                            <td><input type="date" name="fecha_orden" value={formatDate(factura.fecha_orden)} onChange={handleInputChange} /></td>
-                            <td><label>Estado de la factura:</label></td>
-                            <td><input type="text" name="estado_factura" value={factura.estado_factura} onChange={handleInputChange} disabled /></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <h2 className='a'>Datos proveedor</h2>
-                <table className='a'>
-                    <tbody>
-                        <tr>
-                            <td><label>Rut:</label></td>
-                            <td><input type="text" name="rut_proveedor" value={factura.rut_proveedor} onChange={handleInputChange} required minLength='9' maxLength='10' /></td>
-                            <td><label>Razón social:</label></td>
-                            <td><input type="text" name="razon_social_proveedor" value={factura.razon_social_proveedor} onChange={handleInputChange} required minLength="5" maxLength="45" /></td>
-                            <td><label>Dirección:</label></td>
-                            <td><input type="text" name="direccion_proveedor" value={factura.direccion_proveedor} onChange={handleInputChange} required minLength="5" maxLength="45" /></td>
-                        </tr>
-                        <tr>
-                            <td><label>Teléfono:</label></td>
-                            <td><input type="number" name="telefono_proveedor" value={factura.telefono_proveedor} onChange={handleInputChange} required /></td>
-                            <td><label>Correo:</label></td>
-                            <td><input type="text" name="correo_proveedor" value={factura.correo_proveedor} onChange={handleInputChange} required /></td>
-                            <td><label>Sitio Web:</label></td>
-                            <td><input type="text" name="sitio_web_proveedor" value={factura.sitio_web_proveedor} onChange={handleInputChange} /></td>
-                        </tr>
-                        <tr>
-                            <td><label>Tipo Servicio:</label></td>
-                            <td><input type="text" name="tipo_servicio" value={factura.tipo_servicio} onChange={handleInputChange} /></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <h2 className='a'>Datos cliente</h2>
-                <table className="a">
-                    <tbody>
-                        <tr>
-                            <td><label>Rut:</label></td>
-                            <td><input type="text" name="rut_cliente" value={factura.rut_cliente} onChange={handleInputChange} required minLength='9' maxLength='10' /></td>
-                            <td><label>Nombre/Razón social:</label></td>
-                            <td><input type="text" name="nombre_cliente" value={factura.nombre_cliente} onChange={handleInputChange} required minLength="3" maxLength="45" /></td>
-                            <td><label>Dirección:</label></td>
-                            <td><input type="text" name="direccion_cliente" value={factura.direccion_cliente} onChange={handleInputChange} required minLength="3" maxLength="80" /></td>
-                        </tr>
-                        <tr>
-                            <td><label>Teléfono:</label></td>
-                            <td><input type="text" name="telefono_cliente" value={factura.telefono_cliente} onChange={handleInputChange} required /></td>
-                            <td><label>Correo:</label></td>
-                            <td><input type="text" name="correo_cliente" value={factura.correo_cliente} onChange={handleInputChange} required /></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h2 className='a'>Productos</h2>
-                <table className="a">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Precio Unitario</th>
-                            <th>Cantidad</th>
-                            <th>Total</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {factura.productos.map((producto, index) => (
-                            <tr key={index}>
-                                <td><input type="text" name="nombre" value={producto.nombre} onChange={(event) => handleProductChange(index, event)} /></td>
-                                <td><input type="number" name="precio" value={producto.precio} onChange={(event) => handleProductChange(index, event)} /></td>
-                                <td><input type="number" name="cantidad" value={producto.cantidad} onChange={(event) => handleProductChange(index, event)} /></td>
-                                <td><input type="number" name="total" value={Math.round(producto.total)} disabled /></td>
-                                <td><button type="button" onClick={() => handleProductDelete(index)}>Eliminar Producto</button></td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <button type="button" onClick={handleProductAdd}>Agregar Producto</button>
-
-                <h2 className='a'>Datos de despacho</h2>
-                <table className="a">
-                    <tbody>
-                        <tr>
-                            <td><label>Región:</label></td>
-                            <td><input type="text" name="regionDespacho" value={factura.regionDespacho} onChange={handleInputChange} /></td>
-                            <td><label>Comuna:</label></td>
-                            <td><input type="text" name="comunaDespacho" value={factura.comunaDespacho} onChange={handleInputChange} /></td>
-                            <td><label>Dirección</label></td>
-                            <td><input type="text" name="direccionDespacho" value={factura.direccionDespacho} onChange={handleInputChange} /></td>
-                        </tr>
-                        <tr>
-                            <td><label>Fecha estimada de entrega:</label></td>
-                            <td><input type="date" name="fechaDespacho" value={formatDate(factura.fechaDespacho)} onChange={handleInputChange} /></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h2 className='a'>Valores finales</h2>
-                <table className="a">
-                    <tbody>
-                        <tr>
-                            <td><label>Subtotal</label></td>
-                            <td><input type="number" name='subtotal' value={Math.round(calcularSubtotal())} onChange={handleInputChange} disabled /></td>
-                            <td><label>Iva</label></td>
-                            <td><input type="number" name='iva' value={Math.round(calcularIva(calcularSubtotal()))} onChange={handleInputChange} disabled /></td>
-                            <td><label>Total</label></td>
-                            <td><input type="number" name='total' value={Math.round(calcularTotal(calcularSubtotal(), calcularIva(calcularSubtotal())))} onChange={handleInputChange} disabled /></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div className="a">
-                    <button type="submit">Confirmar Cambios</button>
-                    <button type="button" onClick={handleCancel}>Cancelar</button>
+            <div className="formulario-rectificado">
+                <div className="top-title">
+                    <h1 className='b'>Rectificar Factura N° {factura.numero_orden}</h1>
+                    <p className='b'>En esta página puedes modificar los datos que requieras de la factura!</p>
                 </div>
-            </form>
+                <form onSubmit={handleSubmit} className='a'>
+                    <table>
+                        <thead>
+                            <th>Número de Factura:</th>
+                            <th>Fecha de Factura:</th>
+                        </thead>
+                        <tbody>
+                            <td><input type="text" name="numero_orden" value={factura.numero_orden} onChange={handleInputChange} disabled /></td>
+                            <td><input type="date" name="fecha_orden" value={formatDate(factura.fecha_orden)} onChange={handleInputChange} /></td>
+                        </tbody>
+                    </table>
+                    <div className='top-title'>
+                        <h2>Datos proveedor</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <th>Rut:</th>
+                            <th>Razón social:</th>
+                            <th>Dirección:</th>
+                            <th>Teléfono:</th>
+                            <th>Correo:</th>
+                            <th>Sitio Web:</th>
+                            <th>Tipo Servicio:</th>
+                        </thead>
+                        <tbody>
+                            <td><input type="text" name="rut_proveedor" value={factura.rut_proveedor} onChange={handleInputChange} required minLength='9' maxLength='10' /></td>
+                            <td><input type="text" name="razon_social_proveedor" value={factura.razon_social_proveedor} onChange={handleInputChange} required minLength="5" maxLength="45" /></td>
+                            <td><input type="text" name="direccion_proveedor" value={factura.direccion_proveedor} onChange={handleInputChange} required minLength="5" maxLength="45" /></td>
+                            <td><input type="number" name="telefono_proveedor" value={factura.telefono_proveedor} onChange={handleInputChange} required /></td>
+                            <td><input type="text" name="correo_proveedor" value={factura.correo_proveedor} onChange={handleInputChange} required /></td>
+                            <td><input type="text" name="sitio_web_proveedor" value={factura.sitio_web_proveedor} onChange={handleInputChange} /></td>
+                            <td><input type="text" name="tipo_servicio" value={factura.tipo_servicio} onChange={handleInputChange} /></td>
+                        </tbody>
+                    </table>
+                    <div className='top-title'>
+                        <h2>Datos cliente</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <th>Rut:</th>
+                            <th>Nombre/Razón social:</th>
+                            <th>Dirección:</th>
+                            <th>Teléfono:</th>
+                            <th>Correo:</th>
+                        </thead>
+                        <tbody>
+                            <td><input type="text" name="rut_cliente" value={factura.rut_cliente} onChange={handleInputChange} required minLength='9' maxLength='10' /></td>
+                            <td><input type="text" name="nombre_cliente" value={factura.nombre_cliente} onChange={handleInputChange} required minLength="3" maxLength="45" /></td>
+                            <td><input type="text" name="direccion_cliente" value={factura.direccion_cliente} onChange={handleInputChange} required minLength="3" maxLength="80" /></td>
+                            <td><input type="text" name="telefono_cliente" value={factura.telefono_cliente} onChange={handleInputChange} required /></td>
+                            <td><input type="text" name="correo_cliente" value={factura.correo_cliente} onChange={handleInputChange} required /></td>
+                        </tbody>
+                    </table>
+                    <div className='top-title'>
+                        <h2>Productos</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Precio Unitario</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {factura.productos.map((producto, index) => (
+                                <tr key={index}>
+                                    <td><input type="text" name="nombre" value={producto.nombre} onChange={(event) => handleProductChange(index, event)} /></td>
+                                    <td><input type="number" name="precio" value={producto.precio} onChange={(event) => handleProductChange(index, event)} /></td>
+                                    <td><input type="number" name="cantidad" value={producto.cantidad} onChange={(event) => handleProductChange(index, event)} /></td>
+                                    <td><input type="number" name="total" value={Math.round(producto.total)} disabled /></td>
+                                    <td><button className='botones-form' type="button" onClick={() => handleProductDelete(index)}>Eliminar Producto</button></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <button className='boton-agregar' type="button" onClick={handleProductAdd}>Agregar Producto</button>
+
+                    <div className='top-title'>
+                        <h2>Datos de despacho</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <th>Región:</th>
+                            <th>Comuna:</th>
+                            <th>Dirección:</th>
+                            <th>Fecha de entrega:</th>
+                        </thead>
+                        <tbody>
+                            <td><input type="text" name="regionDespacho" value={factura.regionDespacho} onChange={handleInputChange} /></td>
+                            <td><input type="text" name="comunaDespacho" value={factura.comunaDespacho} onChange={handleInputChange} /></td>
+                            <td><input type="text" name="direccionDespacho" value={factura.direccionDespacho} onChange={handleInputChange} /></td>
+                            <td><input type="date" name="fechaDespacho" value={formatDate(factura.fechaDespacho)} onChange={handleInputChange} /></td>
+                        </tbody>
+                    </table>
+                    <div className='top-title'>
+                        <h2>Valores finales</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <th>Subtotal:</th>
+                            <th>Iva:</th>
+                            <th>Total:</th>
+                        </thead>
+                        <tbody>
+                            <td><input type="number" name='subtotal' value={Math.round(calcularSubtotal())} onChange={handleInputChange} disabled /></td>
+                            <td><input type="number" name='iva' value={Math.round(calcularIva(calcularSubtotal()))} onChange={handleInputChange} disabled /></td>
+                            <td><input type="number" name='total' value={Math.round(calcularTotal(calcularSubtotal(), calcularIva(calcularSubtotal())))} onChange={handleInputChange} disabled /></td>
+                        </tbody>
+                    </table>
+                    <div className='btnes-modificar' >
+                        <button className='botones-form-generar' type="submit">Confirmar Cambios</button>
+                        <button className='botones-form-cancelar' type="button" onClick={handleCancel}>Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
         </div>
     );
 };

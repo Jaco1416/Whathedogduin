@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ModuloEnvio = () => {
 
+    const navigate = useNavigate();
     const { id } = useParams();
     const obtenerFechaActualFormateada = () => {
         const fechaActual = new Date();
@@ -28,6 +29,8 @@ const ModuloEnvio = () => {
     const [rejectionReason, setRejectionReason] = useState('');
     const [direccionReceptor, setDireccionReceptor] = useState('');
     const [rutReceptor, setRutReceptor] = useState('');
+    const [imgEvidencia, setImgEvidencia] = useState(null);
+    const [nombreArchivo, setNombreArchivo] = useState('Haz click para agregar la evidencia');
 
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
@@ -59,12 +62,22 @@ const ModuloEnvio = () => {
             }
         });
     };
+
+    const volverInicio = () => {
+        navigate('/Inicio');
+    };
+
+    const handleEvidenciaEntregaChange = (e) => {
+        const file = e.target.files[0];
+        setImgEvidencia(file);
+        setNombreArchivo(file ? file.name : 'Haz click para agregar la evidencia');
+    };
+
     const handleSaveDataEnvio = () => {
-        console.log(rejectionReason); // Aquí puedes hacer algo con el motivo del rechazo, como enviarlo a un servidor
         handleCloseModal();
         Swal.fire({
-            title: '¿Estás seguro?',
-            text: "No podrás revertir esto!",
+            title: '¿Datos correctos?',
+            text: "Se enviaran los productos!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -78,13 +91,13 @@ const ModuloEnvio = () => {
                     'Aceptado!',
                     'El envio ha sido aceptado.',
                     'success'
-                )
+
+                ).then(() => { navigate('/Inicio') });
             }
         });
     };
 
 
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchFactura = async () => {
@@ -155,8 +168,10 @@ const ModuloEnvio = () => {
     const handleSaveData = async event => {
         const envioData = {
             direccion_entrega: direccionReceptor,
-            rut_receptor: rutReceptor
+            rut_receptor: rutReceptor,
+            foto_evidencia: nombreArchivo
         };
+        console.log(envioData);
         const estado = { estado_entrega: 'aceptado' };
         await axios.put(`http://localhost:3001/factura/${id}`, envioData);
         await axios.put(`http://localhost:3001/factura/${id}`, estado);
@@ -164,7 +179,15 @@ const ModuloEnvio = () => {
 
     return (
         <div>
+            <div className='btn-container'>
+                <button class="Btn-back" onClick={volverInicio}>
+                    <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+
+                    <div class="text">Inicio</div>
+                </button>
+            </div>
             <div className="title">
+                
                 <h1>Detalles de la Factura</h1>
             </div>
 
@@ -183,16 +206,38 @@ const ModuloEnvio = () => {
                     <tbody>
                         <tr >
                             <th className='items-tabla'>Número de Factura:</th>
-                            <td className='items-tabla-bd'>{factura.numero_orden}</td>
+                            <td className='dato-table'>{factura.numero_orden}</td>
                         </tr>
                         <tr>
                             <th className='items-tabla'>Fecha de Factura:</th>
-                            <td className='items-tabla-bd'>{new Date(factura.fecha_orden).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
+                            <td className='dato-table'>{new Date(factura.fecha_orden).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
                         </tr>
                         <tr>
                             <th className='items-tabla'>Estado de la entrega:</th>
-                            <td className='items-tabla-bd'>{factura.estado_entrega}</td>
+                            <td className='dato-table'>{factura.estado_entrega}</td>
                         </tr>
+                        {
+                            factura.estado_entrega === 'aceptado' && (
+                                <>
+                                    <tr>
+                                        <th className='items-tabla'>Rut receptor:</th>
+                                        <td className='dato-table'>{factura.rut_receptor}</td>
+                                    </tr>
+                                    <tr>
+                                        <th className='items-tabla'>Direccion entrega:</th>
+                                        <td className='dato-table'>{factura.direccionDespacho}</td>
+                                    </tr>
+                                    <tr>
+                                        <th className='items-tabla'>Fecha entrega:</th>
+                                        <td className='dato-table'>
+                                            {new Date(factura.fechaDespacho).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                                        </td>
+                                    </tr>
+
+
+                                </>
+                            )
+                        }
                     </tbody>
                 </table>
                 {
@@ -231,6 +276,8 @@ const ModuloEnvio = () => {
                                 <input type="text" value={direccionReceptor} name='direccion_entrega' onChange={handleDireccionReceptor} placeholder='Ingresar direccion' required />
                                 <p>Rut</p>
                                 <input type="text" value={rutReceptor} name='rut_receptor' onChange={handleRutReceptor} placeholder='ejemp: 21564842-7' required />
+                                <p>Imagen</p>
+                                <input type="file" name='imgEvidencia' onChange={handleEvidenciaEntregaChange} placeholder='subir imagen de evidencia' required />
                             </div>
                             <div className="modal-footer">
                                 <button onClick={handleSaveDataEnvio} className='btn-aceptar' style={{ margin: '10px' }}>Guardar</button>
